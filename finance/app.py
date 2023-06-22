@@ -2,7 +2,7 @@ import pandas as pd
 import streamlit as st
 import yfinance as yf
 
-@st.cache
+@st.cache_data
 def load_data():
     components = pd.read_html('https://en.wikipedia.org/wiki/List_of_S%26P_500_companies')[0]
     if 'SEC filings' in components.columns:
