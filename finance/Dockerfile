@@ -1,5 +1,5 @@
 # Build stage 1: Base image
-FROM python:3.6 as base
+FROM python:3.9 as base
 
 # Set the working directory inside the container
 WORKDIR /finance
