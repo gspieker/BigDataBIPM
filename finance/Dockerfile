@@ -5,7 +5,7 @@ FROM python:3.6 as base
 WORKDIR /finance
 
 # Copy the requirements.txt file to the working directory
-COPY requirements.txt .
+COPY finance/requirements.txt .
 
 # Install the required packages
 RUN pip install --no-cache-dir -r requirements.txt
