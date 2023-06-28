@@ -21,4 +21,4 @@ WORKDIR /app
 EXPOSE 8501
 
 # Set the command to run when the container starts
-CMD ["streamlit", "run", "finance/app.py", "--server.port=8501", "--server.address=0.0.0.0"]
+CMD ["streamlit", "run", "finance/app.py", "--server.port=8501", "--server.address=	167.235.193.125"]
