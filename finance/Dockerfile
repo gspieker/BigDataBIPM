@@ -1,5 +1,5 @@
 # Build stage 1: Base image
-FROM python:3.10-slim-buster
+FROM python:3.10-slim-buster as base
 
 # Set the working directory inside the container
 WORKDIR /finance
