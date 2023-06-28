@@ -17,9 +17,8 @@ FROM base as final
 COPY . /app
 WORKDIR /app
 
-#aasdf
-# Make port 80 available to the world outside this container
-EXPOSE 8501 
+# Expose port 8501 to the outside world
+EXPOSE 8501
 
 # Set the command to run when the container starts
-CMD ["streamlit", "run", "app.py", "--server.port=8501", "--server.address=	167.235.193.125"]]
+CMD ["streamlit", "run", "app.py", "--server.port=8501", "--server.address=0.0.0.0"]
