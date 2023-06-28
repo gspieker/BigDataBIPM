@@ -5,7 +5,7 @@ FROM python:3.10-slim-buster as base
 WORKDIR /finance
 
 # Copy the requirements.txt file to the working directory
-COPY finance/requirements.txt .
+COPY /requirements.txt .
 
 # Install the required packages
 RUN pip install -r requirements.txt
