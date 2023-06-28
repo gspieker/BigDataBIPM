@@ -14,7 +14,7 @@ RUN pip install --no-cache-dir -r requirements.txt
 FROM base as final
 
 # Copy the rest of the application code to the working directory
-COPY . /app
+COPY . finance/app
 WORKDIR /app
 
 # Expose port 8501 to the outside world
