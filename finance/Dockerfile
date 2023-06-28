@@ -8,7 +8,7 @@ WORKDIR /finance
 COPY finance/requirements.txt .
 
 # Install the required packages
-RUN pip install --no-cache-dir -r requirements.txt
+RUN pip install -r requirements.txt
 
 # Build stage 2: Final image
 FROM base as final
