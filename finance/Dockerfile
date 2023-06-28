@@ -14,11 +14,11 @@ RUN pip install --no-cache-dir -r requirements.txt
 FROM base as final
 
 # Copy the rest of the application code to the working directory
-COPY . finance/app
+COPY . /app
 WORKDIR /app
 
 # Expose port 8501 to the outside world
 EXPOSE 8501
 
 # Set the command to run when the container starts
-CMD ["streamlit", "run", "app.py", "--server.port=8501", "--server.address=0.0.0.0"]
+CMD ["streamlit", "run", "finance/app.py", "--server.port=8501", "--server.address=0.0.0.0"]
