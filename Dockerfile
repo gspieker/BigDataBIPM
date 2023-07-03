@@ -14,7 +14,7 @@ RUN pip install -r requirements.txt
 FROM base as final
 
 # Copy the rest of the application code to the working directory
-COPY . /stocks.py
+COPY . finance/stocks.py
 WORKDIR /finance
 
 # Expose port 8501 to the outside world
