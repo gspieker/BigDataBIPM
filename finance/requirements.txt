@@ -1,3 +1,9 @@
 streamlit
 pandas
 yfinance
+numpy
+keras
+tensorflow
+scikit-learn
+sklearn
+matplotlib 

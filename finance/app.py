@@ -1,53 +1,45 @@
 import pandas as pd
+import numpy as np
+from sklearn.model_selection import train_test_split 
+from sklearn.linear_model import LinearRegression
+from sklearn import metrics
+import matplotlib.pyplot as plt
 import streamlit as st
 import yfinance as yf
+import datetime as dt
 
-@st.cache_data
+@st.cache
 def load_data():
     components = pd.read_html('https://en.wikipedia.org/wiki/List_of_S%26P_500_companies')[0]
-    if 'SEC filings' in components.columns:
-        components = components.drop('SEC filings', axis=1)
-    else:
-        print("'SEC filings' column not found.")
-
     return components.set_index('Symbol')
 
-
 def load_quotes(asset):
-    try:
-        data = yf.download(asset)
-        if data.empty:
-            print("No data available for the specified asset.")
-            return None
-        else:
-            return data
-    except yf.YFinanceError as e:
-        print(f"Error occurred while downloading data: {e}")
-        return None
+    return yf.download(asset)
 
+def create_model(data):
+    data['Date'] = data.index
+    data['Date'] = pd.to_datetime(data['Date'])
+    data['Date']=data['Date'].map(dt.datetime.toordinal)
+    X = data['Date'].values.reshape(-1,1)
+    y = data['Close'].values.reshape(-1,1)
+    
+    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=0)
+
+    regressor = LinearRegression()  
+    regressor.fit(X_train, y_train)
+
+    return regressor, X_test, y_test
 
 def main():
     components = load_data()
     title = st.empty()
-    st.sidebar.title("Options")
 
     def label(symbol):
-        a = components.loc[symbol]
-        return symbol + ' - ' + a.Security
+        return symbol
 
-    if st.sidebar.checkbox('View companies list'):
-        st.dataframe(components[['Security',
-                                 'GICS Sector',
-                                 'Date first added',
-                                 'Founded']])
+    asset = st.sidebar.selectbox('Select asset', components.index.sort_values(), index=3, format_func=label)
+    title.title(asset)
 
-    st.sidebar.subheader('Select asset')
-    asset = st.sidebar.selectbox('Click below to select a new asset',
-                                 components.index.sort_values(), index=3,
-                                 format_func=label)
-    title.title(components.loc[asset].Security)
-    if st.sidebar.checkbox('View company info', True):
-        st.table(components.loc[[asset]])
     data0 = load_quotes(asset)
     if data0 is not None:
         data = data0.copy().dropna()
@@ -84,10 +76,16 @@ def main():
             st.subheader(f'{asset} historical data')
             st.write(data2)
 
-    st.sidebar.title("About")
-
-    st.sidebar.info('This app is a example of')
-
+        if st.sidebar.checkbox('Predict closing price with Linear Regression'):
+            model, X_test, y_test = create_model(data)
+            y_pred = model.predict(X_test)
+            
+            #visualize
+            plt.figure(figsize=(10,5))
+            plt.scatter(X_test, y_test,  color='gray')
+            plt.plot(X_test, y_pred, color='red', linewidth=2)
+            plt.title('Predicted vs Actual Closing Prices')
+            st.pyplot(plt)
 
 if __name__ == '__main__':
     main()
