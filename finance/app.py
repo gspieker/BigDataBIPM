@@ -6,6 +6,7 @@ from sklearn import metrics
 import matplotlib.pyplot as plt
 import streamlit as st
 import yfinance as yf
+import seaborn as sns
 import datetime as dt
 
 @st.cache
@@ -76,24 +77,30 @@ def main():
             st.subheader(f'{asset} historical data')
             st.write(data2)
 
-        if st.sidebar.checkbox('Predict closing price with Linear Regression'):
-            model, X_test, y_test = create_model(data)
-            y_pred = model.predict(X_test)
-            
-            # Convert ordinal X_test back to dates for visualization
-            X_test_dates = [dt.datetime.fromordinal(x[0]) for x in X_test]
-            
-            #visualize
-            plt.figure(figsize=(10,5))
-            plt.scatter(X_test_dates, y_test, color='gray')
-            plt.plot(X_test_dates, y_pred, color='red', linewidth=2)
-            plt.title('Predicted vs Actual Closing Prices')
-            plt.xlabel('Date')
-            plt.ylabel('Closing Price')
-            plt.xticks(rotation=45) # optional: rotate x-axis labels for better visibility
-            st.pyplot(plt)
-            st.caption("Note: This prediction is not an investment recommendation.")
 
+if st.sidebar.checkbox('Predict closing price with Linear Regression'):
+    model, X_test, y_test = create_model(data)
+    y_pred = model.predict(X_test)
+
+    # Convert ordinal X_test back to dates for visualization
+    X_test_dates = [dt.datetime.fromordinal(x[0]) for x in X_test]
+
+    # set seaborn style
+    sns.set_style('darkgrid')
+
+    # create plot
+    fig, ax = plt.subplots(figsize=(10,5))
+    ax.scatter(X_test_dates, y_test, color='gray', label='Actual price')
+    ax.plot(X_test_dates, y_pred, color='red', linewidth=2, label='Predicted price')
+    ax.set_title('Predicted vs Actual Closing Prices')
+    ax.set_xlabel('Date')
+    ax.set_ylabel('Closing Price')
+    ax.legend()  # add legend
+    plt.xticks(rotation=45)  # optional: rotate x-axis labels for better visibility
+
+    st.pyplot(fig)
+
+    st.caption("Note: This prediction is not an investment recommendation.")
 
 
 if __name__ == '__main__':
