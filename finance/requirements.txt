@@ -5,5 +5,4 @@ numpy
 keras
 tensorflow
 scikit-learn
-scikit-learn
 matplotlib 
