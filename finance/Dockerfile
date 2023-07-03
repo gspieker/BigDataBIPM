@@ -11,13 +11,11 @@ COPY finance/requirements.txt .
 RUN pip install -r requirements.txt
 RUN pip install seaborn
 
+# Copy the rest of the application code to the working directory
+COPY . /finance
 
 # Build stage 2: Final image
 FROM base as final
-
-# Copy the rest of the application code to the working directory
-COPY . /finance
-WORKDIR /finance
 
 # Expose port 8501 to the outside world
 EXPOSE 8501
