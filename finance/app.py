@@ -76,13 +76,13 @@ def main():
             st.subheader(f'{asset} historical data')
             st.write(data2)
 
-         if st.sidebar.checkbox('Predict closing price with Linear Regression'):
+        if st.sidebar.checkbox('Predict closing price with Linear Regression'):
             model, X_test, y_test = create_model(data)
             y_pred = model.predict(X_test)
-    
+            
             # Convert ordinal X_test back to dates for visualization
             X_test_dates = [dt.datetime.fromordinal(x[0]) for x in X_test]
-    
+            
             #visualize
             plt.figure(figsize=(10,5))
             plt.scatter(X_test_dates, y_test, color='gray')
@@ -92,6 +92,7 @@ def main():
             plt.ylabel('Closing Price')
             plt.xticks(rotation=45) # optional: rotate x-axis labels for better visibility
             st.pyplot(plt)
+
 
 if __name__ == '__main__':
     main()
