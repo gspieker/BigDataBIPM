@@ -43,6 +43,12 @@ def train_and_predict_model(asset, data):
     # Preprocess data
     training_data_len, scaled_data, scaler = preprocess_data(data)
 
+
+    # Debugging lines
+    print(f"training_data_len: {training_data_len}")
+    print(f"data: {data}")
+    print(f"data index type: {type(data.index)}")
+    
     # Train model
     model = train_model(training_data_len, scaled_data)
 
