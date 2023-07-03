@@ -66,6 +66,15 @@ def train_and_predict_model(asset, data):
     train = data[:training_data_len]
     valid = data[training_data_len:]
     valid.loc[:,'Predictions'] = np.nan
+    
+    print(valid.index)
+    print(len(train))
+    print(len(valid.loc[len(train):,]))
+    print(len(predictions))
+
+    print(predictions.shape)
+
+
     valid.loc[len(train):,'Predictions'] = predictions
 
     return valid
