@@ -87,23 +87,15 @@ def main():
             st.subheader(f'{asset} historical data')
             st.write(data2)
 
+        # Preprocess and train model
+        valid = train_and_predict_model(asset, data)
 
-    data0 = load_quotes(asset)
-    if data0 is not None:
-        data = data0.copy().dropna()
-        data.index.name = None
-    
-    # Preprocess and train model
-    valid = train_and_predict_model(asset, data)
+        # Plot data
+        st.subheader('Predicted Chart')
+        st.line_chart(valid[['Close', 'Predictions']])
 
-    # Plot data
-    st.line_chart(valid[['Close', 'Predictions']])
-    
     st.sidebar.title("About")
     st.sidebar.info('This app is a example of')
-
-
-
 
 
 if __name__ == '__main__':
