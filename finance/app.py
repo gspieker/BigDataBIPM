@@ -6,6 +6,7 @@ from sklearn import metrics
 import matplotlib.pyplot as plt
 import streamlit as st
 import yfinance as yf
+import datetime as dt
 
 @st.cache
 def load_data():
