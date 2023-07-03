@@ -87,10 +87,6 @@ def main():
             st.subheader(f'{asset} historical data')
             st.write(data2)
 
-    st.sidebar.title("About")
-
-    st.sidebar.info('This app is a example of')
-
 
     data0 = load_quotes(asset)
     if data0 is not None:
@@ -102,6 +98,12 @@ def main():
 
     # Plot data
     st.line_chart(valid[['Close', 'Predictions']])
+    
+    st.sidebar.title("About")
+    st.sidebar.info('This app is a example of')
+
+
+
 
 
 if __name__ == '__main__':
