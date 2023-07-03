@@ -1,7 +1,8 @@
 import pandas as pd
 import streamlit as st
 import yfinance as yf
-from model import preprocess_data, train_model
+from model import preprocess_data, train_model, train_and_predict_model
+
 
 
 @st.cache_data
