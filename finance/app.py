@@ -84,6 +84,7 @@ def main():
             plt.figure(figsize=(10,5))
             plt.scatter(X_test, y_test,  color='gray')
             plt.plot(X_test, y_pred, color='red', linewidth=2)
+            plt.title('Predicted vs Actual Closing Prices')
             st.pyplot(plt)
 
 if __name__ == '__main__':
