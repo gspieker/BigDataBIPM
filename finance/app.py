@@ -45,10 +45,37 @@ def main():
         data = data0.copy().dropna()
         data.index.name = None
 
-        # Existing features
-        # Your code here...
+        section = st.sidebar.slider('Number of quotes', min_value=30,
+                                    max_value=min([2000, data.shape[0]]),
+                                    value=500, step=10)
 
-        # Adding Linear Regression prediction
+        data2 = data[-section:]['Adj Close'].to_frame('Adj Close')
+
+        sma = st.sidebar.checkbox('SMA')
+        if sma:
+            period = st.sidebar.slider('SMA period', min_value=5, max_value=500,
+                                       value=20, step=1)
+            data[f'SMA {period}'] = data['Adj Close'].rolling(period).mean()
+            data2[f'SMA {period}'] = data[f'SMA {period}'].reindex(data2.index)
+
+        sma2 = st.sidebar.checkbox('SMA2')
+        if sma2:
+            period2 = st.sidebar.slider('SMA2 period', min_value=5, max_value=500,
+                                        value=100, step=1)
+            data[f'SMA2 {period2}'] = data['Adj Close'].rolling(period2).mean()
+            data2[f'SMA2 {period2}'] = data[f'SMA2 {period2}'].reindex(data2.index)
+
+        st.subheader('Chart')
+        st.line_chart(data2)
+
+        if st.sidebar.checkbox('View statistic'):
+            st.subheader('Statistic')
+            st.table(data2.describe())
+
+        if st.sidebar.checkbox('View quotes'):
+            st.subheader(f'{asset} historical data')
+            st.write(data2)
+
         if st.sidebar.checkbox('Predict closing price with Linear Regression'):
             model, X_test, y_test = create_model(data)
             y_pred = model.predict(X_test)
