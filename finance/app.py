@@ -1,6 +1,8 @@
 import pandas as pd
 import streamlit as st
 import yfinance as yf
+from model import preprocess_data, train_model
+
 
 @st.cache_data
 def load_data():
