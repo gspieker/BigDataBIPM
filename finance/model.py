@@ -37,6 +37,8 @@ def train_model(training_data_len, scaled_data):
 
     return model
 
+
+
 def train_and_predict_model(asset, data):
     # Preprocess data
     training_data_len, scaled_data, scaler = preprocess_data(data)
@@ -57,6 +59,8 @@ def train_and_predict_model(asset, data):
     # Prepare dataframe for plotting
     train = data[:training_data_len]
     valid = data[training_data_len:]
-    valid['Predictions'] = predictions
+    valid.loc[:,'Predictions'] = np.nan
+    valid.loc[len(train):,'Predictions'] = predictions
 
     return valid
+
