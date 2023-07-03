@@ -92,6 +92,8 @@ def main():
             plt.ylabel('Closing Price')
             plt.xticks(rotation=45) # optional: rotate x-axis labels for better visibility
             st.pyplot(plt)
+            st.caption("Note: This prediction is not an investment recommendation.")
+
 
 
 if __name__ == '__main__':
