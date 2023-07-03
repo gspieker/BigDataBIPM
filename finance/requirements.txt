@@ -4,4 +4,5 @@ yfinance
 numpy
 keras
 tensorflow
+scikit-learn
 sklearn
