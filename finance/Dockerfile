@@ -9,7 +9,6 @@ COPY finance/requirements.txt .
 
 # Install the required packages
 RUN pip install -r requirements.txt
-RUN pip install seaborn
 
 # Copy the rest of the application code to the working directory
 COPY . /finance
