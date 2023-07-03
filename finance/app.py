@@ -17,21 +17,18 @@ def load_quotes(asset):
     return yf.download(asset)
 
 def create_model(data):
-    #prepare the data
     data['Date'] = data.index
     data['Date'] = pd.to_datetime(data['Date'])
     data['Date']=data['Date'].map(dt.datetime.toordinal)
     X = data['Date'].values.reshape(-1,1)
     y = data['Close'].values.reshape(-1,1)
     
-    #split the data
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=0)
 
-    #train the algorithm
     regressor = LinearRegression()  
     regressor.fit(X_train, y_train)
 
-    return regressor, X_test
+    return regressor, X_test, y_test
 
 def main():
     components = load_data()
@@ -48,16 +45,19 @@ def main():
         data = data0.copy().dropna()
         data.index.name = None
 
+        # Existing features
+        # Your code here...
+
         # Adding Linear Regression prediction
         if st.sidebar.checkbox('Predict closing price with Linear Regression'):
-            model, X_test = create_model(data)
+            model, X_test, y_test = create_model(data)
             y_pred = model.predict(X_test)
             
-            #visualize the results
+            #visualize
             plt.figure(figsize=(10,5))
             plt.scatter(X_test, y_test,  color='gray')
             plt.plot(X_test, y_pred, color='red', linewidth=2)
-            plt.show()
+            st.pyplot(plt)
 
 if __name__ == '__main__':
     main()
