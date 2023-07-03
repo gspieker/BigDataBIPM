@@ -77,31 +77,9 @@ def main():
             st.subheader(f'{asset} historical data')
             st.write(data2)
 
+        if st.sidebar.checkbox('Predict closing price with Linear Regression'):
+            model, X_test, y_test = create_model(data)
+            y_pred = model.predict(X_test)
 
-if st.sidebar.checkbox('Predict closing price with Linear Regression'):
-    model, X_test, y_test = create_model(data)
-    y_pred = model.predict(X_test)
-
-    # Convert ordinal X_test back to dates for visualization
-    X_test_dates = [dt.datetime.fromordinal(x[0]) for x in X_test]
-
-    # set seaborn style
-    sns.set_style('darkgrid')
-
-    # create plot
-    fig, ax = plt.subplots(figsize=(10,5))
-    ax.scatter(X_test_dates, y_test, color='gray', label='Actual price')
-    ax.plot(X_test_dates, y_pred, color='red', linewidth=2, label='Predicted price')
-    ax.set_title('Predicted vs Actual Closing Prices')
-    ax.set_xlabel('Date')
-    ax.set_ylabel('Closing Price')
-    ax.legend()  # add legend
-    plt.xticks(rotation=45)  # optional: rotate x-axis labels for better visibility
-
-    st.pyplot(fig)
-
-    st.caption("Note: This prediction is not an investment recommendation.")
-
-
-if __name__ == '__main__':
-    main()
+            # Convert ordinal X_test back to dates for visualization
+            X_test_dates = [dt.datetime.fromordinal(x[0]) for x
