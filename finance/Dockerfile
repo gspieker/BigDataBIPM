@@ -9,6 +9,8 @@ COPY finance/requirements.txt .
 
 # Install the required packages
 RUN pip install -r requirements.txt
+RUN pip install seaborn
+
 
 # Build stage 2: Final image
 FROM base as final
