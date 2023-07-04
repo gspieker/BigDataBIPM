@@ -1,24 +1,20 @@
-# Build stage 1: Base image
-FROM python:3.10-slim-buster as base
+# Use an official Python runtime as a parent image
+FROM python:3.10-slim-buster
 
-# Set the working directory inside the container
+# Set the working directory to /app
 WORKDIR /finance
 
-# Copy the requirements.txt file to the working directory
-COPY finance/requirements.txt .
+# Copy requirements.txt into the container at /app
+COPY finance/requirements.txt requirements.txt
 
-# Install the required packages
+# Install any needed packages specified in requirements.txt
 RUN pip install -r requirements.txt
 
-# Build stage 2: Final image
-FROM base as final
+# Copy the current directory contents into the container at /app
+COPY finance/ /app
 
-# Copy the rest of the application code to the working directory
-COPY . finance/stocks.py
-WORKDIR /finance
-
-# Expose port 8501 to the outside world
+# Make port 8501 available to the world outside this container
 EXPOSE 8501
 
-# Set the command to run when the container starts
-CMD ["streamlit", "run", "finance/stocks.py", "--server.port=8501", "--server.address=0.0.0.0"]
+# Run app.py when the container launches
+ENTRYPOINT ["streamlit", "run", "stocks.py", "--server.port=8501", "--server.address=0.0.0.0"]
