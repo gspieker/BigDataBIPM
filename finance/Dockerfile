@@ -11,8 +11,7 @@ COPY finance/requirements.txt requirements.txt
 RUN pip install -r requirements.txt
 
 # Copy the current directory contents into the container at /app
-COPY finance/ /Stocks
-
+COPY finance/Stocks.py /Stocks.py
 # Make port 8501 available to the world outside this container
 EXPOSE 8501
 
