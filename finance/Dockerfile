@@ -11,10 +11,10 @@ COPY finance/requirements.txt requirements.txt
 RUN pip install -r requirements.txt
 
 # Copy the current directory contents into the container at /app
-COPY finance/ /stocks
+COPY finance/ /Stocks
 
 # Make port 8501 available to the world outside this container
 EXPOSE 8501
 
 # Run app.py when the container launches
-ENTRYPOINT ["streamlit", "run", "stocks.py", "--server.port=8501", "--server.address=0.0.0.0"]
+ENTRYPOINT ["streamlit", "run", "Stocks.py", "--server.port=8501", "--server.address=0.0.0.0"]
