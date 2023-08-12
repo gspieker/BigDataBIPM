@@ -10,7 +10,7 @@ import streamlit as st
 import yfinance as yf
 import seaborn as sns
 import datetime as dt
-#AAAAoioio
+
 @st.cache
 def load_data():
     components = pd.read_html('https://en.wikipedia.org/wiki/List_of_S%26P_500_companies')[0]
