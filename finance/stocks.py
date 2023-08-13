@@ -1,4 +1,4 @@
-#We use a Python script that uses the Streamlit framework to create an interactive web application for visualizing and analyzing historical stock data from Yahoo Finance. It includes functions to display stock charts, user defined moving averages (simple moving averages – SMA, SMA2), statistics, and perform linear regression on user defined timeframes to predict closing prices.
+# We use a Python script that uses the Streamlit framework to create an interactive web application for visualizing and analyzing historical stock data from Yahoo Finance. It includes functions to display stock charts, user defined moving averages (simple moving averages – SMA, SMA2), statistics, and perform linear regression on user defined timeframes to predict closing prices.
 
 import pandas as pd
 import numpy as np
