@@ -21,7 +21,7 @@ def load_data():
     return components.set_index('Symbol')
     
 # The @st.cache decorator is used to cache the output of a function. It helps improve the performance of the Streamlit app by preventing unnecessary repeated calculations when the same function is called with the same arguments.
-# load_data(): loads data about the components of the S&P 500 from a Wikipedia page and returns a DataFrame in which the symbols are set as an index. 
+# load_data() function: loads data about the components of the S&P 500 from a Wikipedia page and returns a DataFrame in which the symbols are set as an index. 
 
 def load_quotes(asset):
     return yf.download(asset)
@@ -111,10 +111,10 @@ def main():
             # Convert ordinal X_test back to dates for visualization
             X_test_dates = [dt.datetime.fromordinal(x[0]) for x in X_test]
 
-            # set seaborn style
+            # Set seaborn style
             sns.set_style('darkgrid')
 
-            # create plot
+            # Create plot
             fig, ax = plt.subplots(figsize=(10,5))
             ax.scatter(X_test_dates, y_test, color='gray', label='Actual price')
             ax.plot(X_test_dates, y_pred, color='red', linewidth=2, label='Predicted price')
